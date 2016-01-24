@@ -1,4 +1,4 @@
-#Tutorial Django 1.9 by Ing.luis Martínez
+#Tutorial Django 1.9 by luis Martínez
 
 ##Tools
 *version python 2.7.11
