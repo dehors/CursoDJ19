@@ -5,6 +5,17 @@
 </head>
 <body>
 <h1>Post</h1>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+     {% if message.tags == 'some-tag success' %}
+     	<p>{{ message }}</p>
+     {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+
 <p>Post number {{ post.id }}</p>       
  <li><a href="">{{ post.title }}</a> - {{ post.updated }}</li>
  <p>{{ post.content }}</p>
