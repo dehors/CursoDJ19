@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Post
@@ -51,3 +51,10 @@ def postupdate(request, id):
 		"form": form,
 	}
 	return render(request,"post/new.html",context)
+def postdestroy(request, id):
+	instance = Post.objects.get(id=id)
+	instance.delete()
+	messages.success(request, "Successfully deleted", extra_tags='delete-post')
+	return redirect('/posts/')
+
+

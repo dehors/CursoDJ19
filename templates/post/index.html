@@ -5,6 +5,16 @@
 </head>
 <body>
 <h1>Posts</h1>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+     {% if message.tags == 'delete-post success' %}
+        <p>{{ message }}</p>
+     {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+
 {% if posts %}
     <ul>
     {% for post in posts %} 
