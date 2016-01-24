@@ -13,3 +13,10 @@ def post(request):
 		'posts': queryset,
 	}
 	return render(request,"post/index.html",context)
+
+def postshow(request, id):
+	queryset = Post.objects.get(id=id)	
+	context = {
+		'post': queryset,
+	}  
+	return render(request,"post/show.html",context)
