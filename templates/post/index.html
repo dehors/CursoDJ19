@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Posts</title>
-</head>
-<body>
+{% extends "layout/base.html" %}
+{% block title %}Posts{% endblock title %}
+{% block content %}
+
 <h1>Posts</h1>
 {% if messages %}
 <ul class="messages">
@@ -28,5 +26,5 @@
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
-</body>
-</html>
+
+{% endblock content %}

@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Show post</title>
-</head>
-<body>
+{% extends "layout/base.html" %}
+{% block title %} Posts | {{ post.title }} {% endblock title %}
+{% block content %}
+
 <h1>Post</h1>
 
 {% if messages %}
@@ -21,5 +19,4 @@
  <p>{{ post.content }}</p>
  <p>{{ post.timestamp }}</p>
 
-</body>
-</html>
+{% endblock content %}
