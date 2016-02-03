@@ -30,7 +30,7 @@ def postcreate(request):
 		messages.success(request, "Not Successfully Created")
 		return HttpResponseRedirect('/posts/')
 	else:
-		massages.error(request, "Successfully Created")
+		messages.error(request, "Successfully Created")
 	context = {
 		"form": form,
 	}

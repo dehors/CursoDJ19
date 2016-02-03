@@ -12,6 +12,6 @@ urlpatterns = [
     url(r'^posts/new/$', views.postcreate, name='postcreate'),
     #  /posts/1/edit
     url(r'^posts/(?P<id>[0-9]+)/edit/$', views.postupdate, name='postupdate'),
-    #  /posts/1/edit
+    #  /posts/1/delete
     url(r'^posts/(?P<id>[0-9]+)/delete/$', views.postdestroy, name='postdestroy'),
 ]
