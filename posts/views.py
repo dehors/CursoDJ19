@@ -37,7 +37,7 @@ def postshow(request, id):
 	return render(request,"post/show.html",context)
 
 def postcreate(request):
-	form = PostForm(request.POST or None)
+	form = PostForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
@@ -52,7 +52,7 @@ def postcreate(request):
 
 def postupdate(request, id):
 	instance = get_object_or_404(Post, id=id)
-	form = PostForm(request.POST or None, instance=instance)
+	form = PostForm(request.POST or None, request.FILES or None, instance=instance)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()

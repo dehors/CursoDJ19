@@ -19,6 +19,9 @@
     <div class="col-sm-6">
         <div class="thumbnail">
             <div class="caption">
+                {% if post.image %}               
+                    <img src="{{ post.image.url }}" style="height:50px;width:50px">
+                {% endif %}             
                 <p>Post number {{ post.id }}</p>       
                 <h3><a href="{% url 'postshow' post.id %}" class="btn btn-primary" role"button">{{ post.title }}</a> - <small>{{ post.updated }}</small></h3>
                 <p>{{ post.content | linebreaks | truncatechars:100 }}</p>
@@ -28,7 +31,7 @@
     </div>
     {% endfor %}
     </ul>
-    
+
 <div class="pagination">
     <span class="step-links">
         {% if posts.has_previous %}
