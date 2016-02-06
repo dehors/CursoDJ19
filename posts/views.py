@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
+
 from .models import Post
 from .form import PostForm
 
@@ -9,7 +11,19 @@ def home(request):
 	return render(request,"index.html",{})
 
 def post(request):
-	queryset = Post.objects.all()
+	queryset_list = Post.objects.all()
+
+	paginator = Paginator(queryset_list, 4) # Show 25 contacts per page
+
+	page = request.GET.get('page')
+	try:
+	    queryset = paginator.page(page)
+	except PageNotAnInteger:
+	    # If page is not an integer, deliver first page.
+	    queryset = paginator.page(1)
+	except EmptyPage:
+		queryset = paginator.page(paginator.num_pages)
+
 	context = {
 		'posts': queryset,
 	}
