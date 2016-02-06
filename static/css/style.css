@@ -1,0 +1,48 @@
+body{
+	
+}
+
+h1,h2,h3{
+	text-align: center;
+}
+
+.fromlogin{
+width: 25% ;
+ margin:0 auto 0 auto;
+}
+
+td{
+	padding-right: 10px;
+	background-color: #B1D5FB;
+}
+
+th{
+	background-color: #4B8EFF;
+}
+
+.field_with_errors{
+	display: inline;
+}
+
+.field_with_errors .message{
+	color: #D00;
+	padding-left:5px;
+	font-size:12px; 
+}
+
+
+.redonda{
+ border-radius:3.125em/*40px/16px*/;
+  opacity:1;
+  -ms-transition:all 0.5s ease-out;
+  -moz-transition:all 0.5s ease-out;
+  -o-transition:all 0.5s ease-out;
+  -webkit-transition:all 0.5s ease-out;
+  transition:all 0.5s ease-out;  
+  filter:alpha(opacity=7);
+
+  }
+
+
+
+
