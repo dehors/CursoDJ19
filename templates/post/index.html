@@ -16,11 +16,16 @@
 {% if posts %}
     <ul>
     {% for post in posts %} 
-    	<p>Post number {{ post.id }}</p>       
-        <li><a href="{% url 'postshow' post.id %}">{{ post.title }}</a> - {{ post.updated }}</li>
-        <p>{{ post.content }}</p>
-        <p>{{ post.timestamp }}</p>
-        <hr>
+    <div class="col-sm-6">
+        <div class="thumbnail">
+            <div class="caption">
+                <p>Post number {{ post.id }}</p>       
+                <h3><a href="{% url 'postshow' post.id %}" class="btn btn-primary" role"button">{{ post.title }}</a> - <small>{{ post.updated }}</small></h3>
+                <p>{{ post.content | linebreaks | truncatechars:100 }}</p>
+                <h3><p>{{ post.timestamp }}</p></h3>
+            </div>
+        </div>
+    </div>
     {% endfor %}
     </ul>
 {% else %}
