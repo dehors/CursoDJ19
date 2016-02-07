@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from .models import Post
 from .form import PostForm
@@ -37,6 +37,8 @@ def postshow(request, id):
 	return render(request,"post/show.html",context)
 
 def postcreate(request):
+	if not request.user.is_staff or not request.user.is_superuser:
+		raise Http404
 	form = PostForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
@@ -51,6 +53,8 @@ def postcreate(request):
 	return render(request,"post/new.html",context)
 
 def postupdate(request, id):
+	if not request.user.is_staff or not request.user.is_superuser:
+		raise Http404
 	instance = get_object_or_404(Post, id=id)
 	form = PostForm(request.POST or None, request.FILES or None, instance=instance)
 	if form.is_valid():
@@ -66,6 +70,8 @@ def postupdate(request, id):
 	}
 	return render(request,"post/new.html",context)
 def postdestroy(request, id):
+	if not request.user.is_staff or not request.user.is_superuser:
+		raise Http404
 	instance = Post.objects.get(id=id)
 	instance.delete()
 	messages.success(request, "Successfully deleted", extra_tags='delete-post')
