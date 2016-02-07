@@ -14,6 +14,10 @@
 {% endif %}
 
 {% if posts %}
+<form method="GET" action="">
+    <input type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}" />
+    <input type="submit" value="Search"/>
+</form>
     <ul>
     {% for post in posts %} 
     <div class="col-sm-6">
@@ -43,7 +47,7 @@
         </span>
 
         {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}">next</a>
+            <a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
         {% endif %}
     </span>
 </div>

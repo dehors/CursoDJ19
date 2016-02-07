@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from .models import Post
@@ -13,6 +14,9 @@ def home(request):
 def post(request):
 	queryset_list = Post.objects.all()
 
+	query = request.GET.get("q")
+	if query:
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(content__icontains=query)|Q(user__username__icontains=query)).distinct()
 	paginator = Paginator(queryset_list, 4) # Show 25 contacts per page
 
 	page = request.GET.get('page')
