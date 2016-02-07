@@ -30,6 +30,8 @@ def post(request):
 	return render(request,"post/index.html",context)
 
 def postshow(request, id):
+	if not request.user.is_authenticated():
+		raise Http404
 	queryset = Post.objects.get(id=id)
 	context = {
 		'post': queryset,
@@ -39,9 +41,11 @@ def postshow(request, id):
 def postcreate(request):
 	if not request.user.is_staff or not request.user.is_superuser:
 		raise Http404
+
 	form = PostForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
+		instance.user = request.user
 		instance.save()
 		messages.success(request, "Not Successfully Created")
 		return HttpResponseRedirect('/posts/')

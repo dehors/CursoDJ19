@@ -20,7 +20,7 @@
         <div class="thumbnail">
             <div class="caption">
                 {% if post.image %}               
-                    <img src="{{ post.image.url }}" style="height:50px;width:50px">
+                    <img src="{{ post.image.url }}" style="height:50px;width:50px"> <p>Author: {{ post.user }}</p>
                 {% endif %}             
                 <p>Post number {{ post.id }}</p>       
                 <h3><a href="{% url 'postshow' post.id %}" class="btn btn-primary" role"button">{{ post.title }}</a> - <small>{{ post.updated }}</small></h3>
