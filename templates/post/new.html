@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>new post</title>
-</head>
-<body>
+{% extends "layout/base.html" %}
+
+{% block head_extra %}
+	{{ form.media }}
+{% endblock head_extra %}
+
+{% block content %}
 <h1>Form</h1>
 <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 {{ form.as_p}}
 <input type="submit" value="Create Post" />	
 </form>
+{% endblock content %}
 
-</body>
-</html>
