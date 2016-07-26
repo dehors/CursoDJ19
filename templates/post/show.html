@@ -16,7 +16,7 @@
 
 <p>Post number {{ post.id }} - <a href="{% url 'postdestroy' post.id %}">delete</a></p>      
  <li><a href="{% url 'postupdate' post.id %}">{{ post.title }}</a> - {{ post.updated }}{% if post.draft %} - <span style="color:red;">Draft</span> {% endif %}</li>
- <p class="content-markdown">{{ post.content }}</p>
+ <p class="post-detail-item">{{ post.get_markdown }}</p>
  <p>{{ post.timestamp }} - {{ post.timestamp|timesince }} - {{ post.publish }}</p>
 
 {% endblock content %}

@@ -1,7 +1,8 @@
 from __future__ import unicode_literals
 from django.conf import settings
 from django.db import models
-
+from django.utils.safestring import mark_safe
+from markdown_deux import markdown
 # Create your models here.
 def upload_location(instance, filename):
 	filebase, extension = filename.split(".")
@@ -26,4 +27,8 @@ class Post(models.Model):
 
 	class Meta:
 		ordering = ["-timestamp", "-updated"]
+
+	def get_markdown(self):
+		content = self.content
+		return mark_safe(markdown(content))
 		

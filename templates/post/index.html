@@ -22,7 +22,7 @@
     {% for post in posts %} 
     <div class="col-sm-6">
         <div class="thumbnail">
-            <div class="caption">
+            <div class="caption post-detail-item">
                 {% if post.image %}               
                     <img src="{{ post.image.url }}" style="height:50px;width:50px"> <p>Author: {{ post.user }}</p>
                 {% endif %}             
@@ -31,7 +31,7 @@
 <!--                 <p>{{ post.content | safe }}</p> -->
                 <!-- <p>{{ post.content | linebreaks | truncatechars:100 }}</p> -->
                 <!-- <p class="content-markdown">{{ post.content | linebreaks }}</p> -->
-                <p class="content-markdown">{{ post.content }}</p>
+                <p class="">{{ post.get_markdown }}</p>
                 <h3><p>{{ post.timestamp }}</p></h3>
             </div>
         </div>
