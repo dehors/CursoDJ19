@@ -149,4 +149,4 @@ BOWER_INSTALLED_APPS = (
     'jquery#1.12.4',
     'bootstrap#3.3.6',
     'marked#0.3.5',
-) 
+)
