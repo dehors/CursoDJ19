@@ -32,6 +32,37 @@
 		$(".post-detail-item img").each(function(){
 			$(this).addClass("img-responsive");			
 		})
+
+		var titleItem = $("#id_title");
+		$("#preview-title").text(titleItem.val());
+		var contentItem = $("#id_content");
+
+		function setcontent(value){
+			var markedContent = marked(value);
+			$("#preview-content").html(markedContent);
+			$("#preview-content img").each(function(){
+				$(this).addClass('img-responsive');
+			});
+		}
+
+		setcontent(contentItem.val());
+
+		contentItem.keyup(function(){
+			var newContent = $(this).val();
+			setcontent(newContent);
+		});
+
+		function setTitle(value){
+			$("#preview-title").text(value);
+		}
+		setTitle(titleItem.val());
+		titleItem.keyup(function(){
+			var newContent = $(this).val();
+			setTitle(newContent);
+		});
+
+		//preview-title
+		//preview-content
 	});
 	</script>
 </body>
