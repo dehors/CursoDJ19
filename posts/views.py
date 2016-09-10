@@ -3,10 +3,11 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.contrib.contenttypes.models import ContentType
 
 from .models import Post
+from comments.models import Comment
 from .form import PostForm
-
 
 def home(request):
 	return render(request,"index.html",{})
@@ -36,9 +37,16 @@ def post(request):
 def postshow(request, id):
 	if not request.user.is_authenticated():
 		raise Http404
+	instance = get_object_or_404(Post, id=id)
 	queryset = Post.objects.get(id=id)
+	content_type = ContentType.objects.get_for_model(Post)
+	obj_id = instance.id
+	comments = Comment.objects.filter(content_type=content_type,object_id=obj_id)
+	#comments = Comment.objects.filter(user=request.user)
+	#comments = Comment.objects.filter(post=instance)
 	context = {
 		'post': queryset,
+		'comments':comments
 	}  
 	return render(request,"post/show.html",context)
 

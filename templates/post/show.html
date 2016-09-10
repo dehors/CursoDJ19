@@ -18,5 +18,17 @@
  <li><a href="{% url 'postupdate' post.id %}">{{ post.title }}</a> - {{ post.updated }}{% if post.draft %} - <span style="color:red;">Draft</span> {% endif %}</li>
  <p class="post-detail-item">{{ post.get_markdown }}</p>
  <p>{{ post.timestamp }} - {{ post.timestamp|timesince }} - {{ post.publish }}</p>
-
+<div>
+	<p class="lead">Comments</p>
+	{% for comment in comments %}
+		{{ comment.content_object }}
+		{{ comment.content_object.markdown }}
+		<div class="">
+			{{ comment.content }}
+			<br/>
+				<small>via {{ comment.user }} on {{ comment.timestamp|timesince }} ago</small>
+			<hr/>		
+		</div>
+	{% endfor %}
+</div>
 {% endblock content %}
