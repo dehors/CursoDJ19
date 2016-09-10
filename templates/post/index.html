@@ -2,71 +2,61 @@
 {% block title %}Posts{% endblock title %}
 {% block content %}
 
-
-<div class="col-sm-6 col-sm-offset-3">
-    <h1>Posts</h1>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        {% if message.tags == 'delete-post success' %}
+<h1>Posts</h1>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+     {% if message.tags == 'delete-post success' %}
         <p>{{ message }}</p>
-        {% endif %}
-        {% endfor %}
-    </ul>
-    {% endif %}
+     {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
 
-    {% if posts %}
-    <form method="GET" action="" class="row">
-        <div class="col-sm-6">
-            <div class="input-group">
-                <input class="form-control" type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}" />
-                <span class="input-group-btn">
-                    <!-- <input class="btn btn-default" type="submit" value="Search"/> -->
-                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-                </span>
+{% if posts %}
+<form method="GET" action="">
+    <input type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}" />
+    <input type="submit" value="Search"/>
+</form>
+    <ul>
+    {% for post in posts %} 
+    <div class="col-sm-6">
+        <div class="thumbnail">
+            <div class="caption post-detail-item">
+                {% if post.image %}               
+                    <img src="{{ post.image.url }}" style="height:50px;width:50px"> <p>Author: {{ post.user }}</p>
+                {% endif %}             
+                <p>Post number {{ post.id }}</p>       
+                <h3><a href="{% url 'postshow' post.id %}" class="btn btn-primary" role"button">{{ post.title }}</a> - <small>{{ post.updated }}</small></h3>
+<!--                 <p>{{ post.content | safe }}</p> -->
+                <!-- <p>{{ post.content | linebreaks | truncatechars:100 }}</p> -->
+                <!-- <p class="content-markdown">{{ post.content | linebreaks }}</p> -->
+                <p class="">{{ post.get_markdown|truncatechars_html:9 }}</p>
+                <h3><p>{{ post.timestamp }}</p></h3>
             </div>
         </div>
-    </form>
-    {% for post in posts %}
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="thumbnail">
-                <div class="caption post-detail-item">
-                    {% if post.image %}               
-                    <img src="{{ post.image.url }}" style="height:50px;width:50px"> <p>Author: {{ post.user }}</p>
-                    {% endif %}             
-                    <p>Post number {{ post.id }}</p>       
-                    <h3><a href="{% url 'postshow' post.id %}" class="btn btn-primary" role"button">{{ post.title }}</a> - <small>{{ post.updated }}</small></h3>
-                    <!--                 <p>{{ post.content | safe }}</p> -->
-                    <!-- <p>{{ post.content | linebreaks | truncatechars:100 }}</p> -->
-                    <!-- <p class="content-markdown">{{ post.content | linebreaks }}</p> -->
-                    <p class="">{{ post.get_markdown|truncatechars_html:9 }}</p>
-                    <h3><p>{{ post.timestamp }}</p></h3>
-                </div>
-            </div>
-        </div>        
     </div>
     {% endfor %}
-    <div class="pagination">
-        <span class="step-links">
-            {% if posts.has_previous %}
+    </ul>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
             <a href="?page={{ posts.previous_page_number }}">previous</a>
-            {% endif %}
+        {% endif %}
 
-            <span class="current">
-                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
-            </span>
-
-            {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
-            {% endif %}
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
         </span>
-    </div>
 
-    {% else %}
-    <p>No posts are available.</p>
-    {% endif %}
-    
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+        {% endif %}
+    </span>
 </div>
+
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}
 
 {% endblock content %}
