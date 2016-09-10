@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.safestring import mark_safe
 from markdown_deux import markdown
+from comments.models import Comment
 # Create your models here.
 def upload_location(instance, filename):
 	filebase, extension = filename.split(".")
@@ -25,6 +26,12 @@ class Post(models.Model):
 	def __str__(self):
 		return self.title
 
+	@property
+	def comments(self):
+		instance = self
+		qs = Comment.objects.filter_by_instance(self)
+		return qs
+	
 	class Meta:
 		ordering = ["-timestamp", "-updated"]
 
