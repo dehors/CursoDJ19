@@ -37,11 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #thrid apps
     'djangobower',
     'markdown_deux',
     'pagedown',
+    'crispy_forms',
+    #local apps
     'posts',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -149,4 +154,5 @@ BOWER_INSTALLED_APPS = (
     'jquery#1.12.4',
     'bootstrap#3.3.6',
     'marked#0.3.5',
+    'components-font-awesome',
 )
