@@ -2,7 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+from comments.forms import CommentForm
 
 from .models import Post
 from comments.models import Comment
@@ -38,13 +40,33 @@ def postshow(request, id):
 		raise Http404
 	instance = get_object_or_404(Post, id=id)
 	queryset = Post.objects.get(id=id)
+	initial_data = {
+		"content_type": instance.get_content_type,
+		"object_id": instance.id
+	}
+	form = CommentForm(request.POST or None, initial=initial_data)
+	if form.is_valid():
+		c_type = form.cleaned_data.get("content_type")
+		content_type = ContentType.objects.get(model=c_type)
+		obj_id = form.cleaned_data.get('object_id')
+		content_data = form.cleaned_data.get("content")
+		new_comment, created = Comment.objects.get_or_create(
+							user = request.user,
+							content_type= content_type,
+							object_id = obj_id,
+							content = content_data
+						)
+		if created:
+			print("Yeah it work")
+		# print(comment_from.cleaned_data)
 	comments = instance.comments
 	#comments = Comment.objects.filter(user=request.user)
 	#comments = Comment.objects.filter(post=instance)
 	context = {
 		'post': queryset,
-		'comments':comments
-	}  
+		'comments':comments,
+		'comment_from':form,
+	}
 	return render(request,"post/show.html",context)
 
 def postcreate(request):

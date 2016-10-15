@@ -20,6 +20,10 @@
  <p>{{ post.timestamp }} - {{ post.timestamp|timesince }} - {{ post.publish }}</p>
 <div>
 	<p class="lead">Comments</p>
+	<form method="POST" action=".">{% csrf_token %}
+		{{ comment_from }}
+		<input type="submit" value="Post comment" class="btn btn-default">
+	</form>
 	{% for comment in comments %}
 		{{ comment.content_object }}
 		{{ comment.content_object.markdown }}

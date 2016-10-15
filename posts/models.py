@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from markdown_deux import markdown
 from comments.models import Comment
+from django.contrib.contenttypes.models import ContentType
 # Create your models here.
 def upload_location(instance, filename):
 	filebase, extension = filename.split(".")
@@ -20,7 +21,7 @@ class Post(models.Model):
 	publish = models.DateField(auto_now=False, auto_now_add=False)
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
-	
+
 	def __unicode__(self):
 		return self.title
 	def __str__(self):
@@ -31,6 +32,12 @@ class Post(models.Model):
 		instance = self
 		qs = Comment.objects.filter_by_instance(self)
 		return qs
+
+	@property
+	def get_content_type(self):
+		instance = self
+		content_type = ContentType.objects.get_for_model(instance.__class__)
+		return content_type
 	
 	class Meta:
 		ordering = ["-timestamp", "-updated"]

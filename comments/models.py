@@ -13,13 +13,12 @@ class CommentManager(models.Manager):
 		return qs
 
 class Comment(models.Model):
-	user 		= models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
-	#post		= models.ForeignKey(Post)
-	content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-	object_id = models.PositiveIntegerField()
-	content_object = GenericForeignKey('content_type', 'object_id')
-	content 	= models.TextField()
-	timestamp 	= models.DateTimeField(auto_now_add=True)
+	user			= models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
+	content_type	= models.ForeignKey(ContentType, on_delete=models.CASCADE)
+	object_id		= models.PositiveIntegerField()
+	content_object	= GenericForeignKey('content_type', 'object_id')
+	content			= models.TextField()
+	timestamp		= models.DateTimeField(auto_now_add=True)
 
 	objects = CommentManager()
 
